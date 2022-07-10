@@ -11,83 +11,77 @@ const Intern = require('./lib/Intren');
 // link to page creation process
 const generateHTML = require('./src/html-helper');
 
+
 const teamArray = [];
 
 
-const managerAdd = () => {
-  return inquirer.prompt ([
-    {
-      type: 'input',
-      name: 'name',
-      message: "What is the team manager's name?",
-      validate: name => {
-        if (name.length > 0) {
-          return true;
-        } else {
-          console.log("Please enter the team manager's name!");
-          return false;
-        };
+const managerAdd = async () => {
+  const managerInput = await inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the team manager's name? ",
+        validate: nameInput => {
+          if (isNaN(nameInput)) {
+            return true;
+          } else {
+            console.log("Please enter the team manager's name!");
+            return false;
+          };
+        },
       },
-    },
-    {
-      type: 'input',
-      name: 'id',
-      message: "What is the team manager's ID number?",
-      validate: idInput => {
-        if (isNaN(idInput.value)) {
-          console.log("Please enter a valid ID number!");
-          return false;
-        } else {
-          return true;
-        };
+      {
+        type: 'input',
+        name: 'id',
+        message: "What is the team manager's ID number?",
+        validate: idInput => {
+          if (isNaN(idInput)) {
+            console.log("Please enter a valid ID number!");
+            return false;
+          } else {
+            return true;
+          };
+        },
       },
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: "Please enter the team manager's email address?",
-      validate: emailInput => {
-        if (validator.isEmail(managerEmailInput)) {
-          return true;
-        } else { 
-          console.log("Please enter a valid email address!");
-          return false;
-        };
+      {
+        type: 'input',
+        name: 'email',
+        message: "Please enter the team manager's email address?",
+        validate: emailInput => {
+          if (validator.isEmail(emailInput)) {
+            return true;
+          } else {
+            console.log("Please enter a valid email address!");
+            return false;
+          };
+        },
       },
-    },
-    {
-      type: 'input',
-      name: 'officeNumber',
-      message: "Please enter the team manager's office number?",
-      validate: officeNumberInput => {
-        if (officeNumberInput > 0) {
-          return true;
-        } else {
-          console.log("Please enter a valid office number!");
-          return false;
-        };
+      {
+        type: 'input',
+        name: 'officeNumber',
+        message: "Please enter the team manager's office number?",
+        validate: officeNumberInput => {
+          if (officeNumberInput > 0) {
+            return true;
+          } else {
+            console.log("Please enter a valid office number!");
+            return false;
+          };
+        },
       },
-    },
-  ])
-  .then(managerInput => {
-    const { name, id, email, officeNumber } = managerInput;
-    const manager = new Manager(name, id, email, officeNumber);
-
-    teamArray.push(manager);
-    console.log(manager);
-  });
+    ]);
+  const { name, id, email, officeNumber } = managerInput;
+  const manager = new Manager(name, id, email, officeNumber);
+  teamArray.push(manager);
+  console.log(manager);
 };
 
 const addEmpolyee = () => {
   console.log( "Adding empolyees to the team" );
 
   return inquirer.prompt([
-    {
-      type: 'checkbox',
-      name: 'Add empolyees or done',
-      message: 'Select the type of employee you would like to add.',
-      choices: [ 'Intern', 'Engineer' ],
-    },
+    
     {
       type: 'input',
       name: 'name',
@@ -117,9 +111,9 @@ const addEmpolyee = () => {
     {
       type: 'input',
       name: 'email',
-      message: "Please enter the team manager's email address?",
+      message: "Please enter the empolyee's email address?",
       validate: emailInput => {
-        if (validator.isEmail(managerEmailInput)) {
+        if (validator.isEmail(emailInput)) {
           return true;
         } else { 
           console.log("Please enter a valid email address!");
@@ -128,10 +122,16 @@ const addEmpolyee = () => {
       },
     },
     {
+      type: 'checkbox',
+      name: 'role',
+      message: 'Select the type of employee you would like to add.',
+      choices: [ 'Intern', 'Engineer' ],
+    },
+    {
       type: 'input',
       name: 'github',
       message: "Please enter the empolyees's github username.",
-      when: (input) => input.role === 'Engineer',
+      when: (input) => input.role == 'Engineer',
       validate: githubInput => {
         if (githubInput) {
           return true;
@@ -145,7 +145,7 @@ const addEmpolyee = () => {
       type: 'input',
       name: 'school',
       message: "Please enter the Interns school name.",
-      when: (input) => input.role === 'Inturn',
+      when: (input) => input.role == 'Inturn',
       validate: schoolInput => {
         if (schoolInput) {
           return true;
@@ -161,7 +161,6 @@ const addEmpolyee = () => {
       message: "Would you like to add more team members?",
       default: false,
     },
-
   ])
   .then(employeeData => {
 
@@ -172,7 +171,7 @@ const addEmpolyee = () => {
       employee = new Engineer ( name, id, email, github );
       
       console.log(employee);
-    } else if (role === " Intern") {
+    } else if (role === "Intern") {
       employee = new Intern ( name, id, email, school );
 
       console.log(employee); 
@@ -202,8 +201,8 @@ const writeFile = data => {
   })
 }; 
 
-addManager()
-.then(addEmployee)
+managerAdd()
+.then(addEmpolyee)
 .then(teamArray => {
   return generateHTML(teamArray);
 })
