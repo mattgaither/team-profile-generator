@@ -3,10 +3,13 @@ const inquirer = require('inquirer');
 const validator = require('validator');
 const fs = require('fs');
 
+// Team library
 const Manager = require("./lib/Manager");
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intren');
-const { off } = require('process');
+
+// link to page creation process
+const generateHTML = require('./src/html-helper');
 
 const teamArray = [];
 
@@ -66,7 +69,7 @@ const managerAdd = () => {
       },
     },
   ])
-  .then((managerInput) => {
+  .then(managerInput => {
     const { name, id, email, officeNumber } = managerInput;
     const manager = new Manager(name, id, email, officeNumber);
 
@@ -184,3 +187,29 @@ const addEmpolyee = () => {
     };
   });
 };
+
+// function to generate HTML page file using file system 
+const writeFile = data => {
+  fs.writeFile('./src/index.html', data, err => {
+      // if there is an error 
+      if (err) {
+          console.log(err);
+          return;
+      // when the profile has been created 
+      } else {
+          console.log("Your team profile has been successfully created! Please check out the index.html")
+      }
+  })
+}; 
+
+addManager()
+.then(addEmployee)
+.then(teamArray => {
+  return generateHTML(teamArray);
+})
+.then(pageHTML => {
+  return writeFile(pageHTML);
+})
+.catch(err => {
+console.log(err);
+});
