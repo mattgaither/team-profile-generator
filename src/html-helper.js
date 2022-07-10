@@ -2,7 +2,7 @@
 const generateManager = (manager) => {
   return `
   <div class="col-4 mt-4">
-      <div class="card h-100">
+      <div class="card h-120">
           <div class="card-header">
               <h3>${manager.name}</h3>
               <h4>Manager</h4><i class="material-icons">content_paste</i>
@@ -21,7 +21,7 @@ const generateManager = (manager) => {
 const generateEngineer =  (engineer) => {
   return `
   <div class="col-4 mt-4">
-      <div class="card h-100">
+      <div class="card h-120">
           <div class="card-header">
               <h3>${engineer.name}</h3>
               <h4>Engineer</h4><i class="material-icons">laptop_mac</i>
@@ -40,7 +40,7 @@ const generateEngineer =  (engineer) => {
 const generateIntern = (intern) => {
   return `
   <div class="col-4 mt-4">
-      <div class="card h-100">
+      <div class="card h-120">
           <div class="card-header">
               <h3>${intern.name}</h3>
               <h4>Intern</h4><i class="material-icons">assignment_ind</i>
@@ -53,5 +53,46 @@ const generateIntern = (intern) => {
   </div>
 </div>
   `;
+};
+
+// push array to page 
+generateHTML = (data) => {
+
+  // array for cards 
+  pageArray = []; 
+
+  for (let i = 0; i < data.length; i++) {
+    const employee = data[i];
+    const role = employee.getRole(); 
+
+
+    // call manager function
+    if (role === 'Manager') {
+      const managerCard = generateManager(employee);
+
+      pageArray.push(managerCard);
+    };
+
+    // call engineer function
+    if (role === 'Engineer') {
+      const engineerCard = generateEngineer(employee);
+
+      pageArray.push(engineerCard);
+    };
+
+    // call intern function 
+    if (role === 'Intern') {
+      const internCard = generateIntern(employee);
+
+      pageArray.push(internCard);
+    };
+  };
+
+  //joing strings
+  const employeeCards = pageArrary.join('');
+
+  // return to generated page
+  const generateTeam = generateTeamPage(employeeCards); 
+  return generateTeam;
 };
 
