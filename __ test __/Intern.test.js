@@ -1,5 +1,5 @@
 // Using the Intern constructor
-const Intern = require('../lib/Intren');
+const Intern = require('../lib/Intern');
 
 // Checks the object properties
 test('object', () => {

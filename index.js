@@ -6,7 +6,7 @@ const fs = require('fs');
 // Team library
 const Manager = require("./lib/Manager");
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intren');
+const Intern = require('./lib/Intern');
 
 // link to page creation process
 const generateHTML = require('./src/html-helper');
@@ -81,7 +81,12 @@ const addEmpolyee = () => {
   console.log( "Adding empolyees to the team" );
 
   return inquirer.prompt([
-    
+    {
+      type: 'input',
+      name: 'role',
+      message: 'Select the type of employee you would like to add.',
+      choices: [ 'Intern', 'Engineer' ],
+    },
     {
       type: 'input',
       name: 'name',
@@ -111,7 +116,7 @@ const addEmpolyee = () => {
     {
       type: 'input',
       name: 'email',
-      message: "Please enter the empolyee's email address?",
+      message: "Please enter the team manager's email address?",
       validate: emailInput => {
         if (validator.isEmail(emailInput)) {
           return true;
@@ -122,18 +127,12 @@ const addEmpolyee = () => {
       },
     },
     {
-      type: 'checkbox',
-      name: 'role',
-      message: 'Select the type of employee you would like to add.',
-      choices: [ 'Intern', 'Engineer' ],
-    },
-    {
       type: 'input',
       name: 'github',
       message: "Please enter the empolyees's github username.",
       when: (input) => input.role == 'Engineer',
-      validate: githubInput => {
-        if (githubInput) {
+      validate: roleInput => {
+        if (roleInput) {
           return true;
         } else {
           console.log("Please enter a valid github username!");
@@ -145,9 +144,9 @@ const addEmpolyee = () => {
       type: 'input',
       name: 'school',
       message: "Please enter the Interns school name.",
-      when: (input) => input.role == 'Inturn',
-      validate: schoolInput => {
-        if (schoolInput) {
+      when: (input) => input.role == 'Intern',
+      validate: roleInput => {
+        if (roleInput) {
           return true;
         } else {
           console.log("Please enter a school name!");
@@ -161,17 +160,18 @@ const addEmpolyee = () => {
       message: "Would you like to add more team members?",
       default: false,
     },
+
   ])
   .then(employeeData => {
 
-    let { name, id, email, role, github, school, confirmAddEmployee } = employeeData;
+    let { name, id, role, email, github, school, confirmEmployee } = employeeData;
     let employee;
 
-    if (role === "Engineer") {
-      employee = new Engineer ( name, id, email, github );
+    if (role == "Engineer") {
+      employee = new Engineer( name, id, email, github );
       
       console.log(employee);
-    } else if (role === "Intern") {
+    } else if (role == "Intern") {
       employee = new Intern ( name, id, email, school );
 
       console.log(employee); 
@@ -179,7 +179,7 @@ const addEmpolyee = () => {
 
     teamArray.push(employee);
 
-    if (confirmAddEmployee) { 
+    if (confirmEmployee) { 
       return addEmpolyee(teamArray);
     } else {
       return teamArray;
@@ -204,7 +204,7 @@ const writeFile = data => {
 managerAdd()
 .then(addEmpolyee)
 .then(teamArray => {
-  return generateHTML(teamArray);
+  return generateHTML(Array);
 })
 .then(pageHTML => {
   return writeFile(pageHTML);
