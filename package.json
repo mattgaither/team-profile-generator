@@ -8,19 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alanam79/team-profile-generator.git"
+    "url": "git+https://github.com/mattgaither/team-profile-generator"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alanam79/team-profile-generator/issues"
+    "url": "https://github.com/mattgaither/team-profile-generator/issues"
   },
-  "homepage": "https://github.com/alanam79/team-profile-generator#readme",
+  "homepage": "https://github.com/mattgaither/team-profile-generator",
   "devDependencies": {
     "jest": "^28.1.0"
   },
   "dependencies": {
-    "inquirer": "^9.0.0",
-    "jest": "^28.1.2"
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.2",
+    "validator": "^13.7.0"
   }
 }
