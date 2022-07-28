@@ -7,8 +7,10 @@ const generateTeam = (team) => {
       <div class="col-12 col-md-6 col-xl-3 mb-3">
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-header bg-secondary text-light">Name: ${manager.getName()}</h5>
-            <h5 class="card-header bg-secondary text-light"><i class="fa-solid fa-user-tie">  </i>${manager.getRole()}</h5>
+            <h5 class="card-header bg-secondary text-light">
+              Name: ${manager.getName()}</br>
+              <i class="fa-solid fa-user-tie">  </i>${manager.getRole()}
+            </h5>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">ID: ${manager.getId()}</li>
               <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
@@ -25,8 +27,10 @@ const generateTeam = (team) => {
     <div class="col-12 col-md-6 col-xl-3 mb-3">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-header bg-secondary text-light">Name: ${engineer.getName()}</h5>
-          <h5 class="card-header bg-secondary text-light"><i class="fa-solid fa-laptop-code">  </i>${engineer.getRole()}</h5>
+          <h5 class="card-header bg-secondary text-light">
+            Name: ${engineer.getName()} </br>
+            <i class="fa-solid fa-laptop-code">  </i>${engineer.getRole()}
+          </h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>        
@@ -43,8 +47,10 @@ const generateTeam = (team) => {
     <div class="col-12 col-md-6 col-xl-3 mb-3">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-header bg-secondary text-light">Name: ${intern.getName()}</h5>
-          <h5 class="card-header bg-secondary text-light"><i class="fa-solid fa-school">  </i>${intern.getRole()}</h5>
+          <h5 class="card-header bg-secondary text-light">
+            Name: ${intern.getName()}</br>
+            <i class="fa-solid fa-school">  </i>${intern.getRole()}
+          </h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.getId()}</li>
             <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
