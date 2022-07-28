@@ -2,6 +2,7 @@
 const inquirer = require('inquirer');
 const validator = require('validator');
 const fs = require('fs');
+const path = require('path');
 
 // Team library
 const Manager = require("./lib/Manager");
@@ -13,7 +14,6 @@ const generateHTML = require('./src/html-helper');
 
 
 const teamArray = [];
-
 
 const managerAdd = async () => {
   const managerInput = await inquirer
@@ -73,8 +73,10 @@ const managerAdd = async () => {
     ]);
   const { name, id, email, officeNumber } = managerInput;
   const manager = new Manager(name, id, email, officeNumber);
+
   teamArray.push(manager);
-  console.log(manager);
+  console.log("Team" , teamArray);
+  // createTeam()
 };
 
 const addEmpolyee = () => {
@@ -82,9 +84,9 @@ const addEmpolyee = () => {
 
   return inquirer.prompt([
     {
-      type: 'input',
+      type: 'list',
       name: 'role',
-      message: 'Select the type of employee you would like to add.',
+      message: 'Select the type of employee you would like to add. Note if you do not make a selectin',
       choices: [ 'Intern', 'Engineer' ],
     },
     {
@@ -116,7 +118,7 @@ const addEmpolyee = () => {
     {
       type: 'input',
       name: 'email',
-      message: "Please enter the team manager's email address?",
+      message: "Please enter the team member's email address?",
       validate: emailInput => {
         if (validator.isEmail(emailInput)) {
           return true;
@@ -169,18 +171,21 @@ const addEmpolyee = () => {
 
     if (role == "Engineer") {
       employee = new Engineer( name, id, email, github );
-      
-      console.log(employee);
+
+      teamArray.push(employee);
+      console.log("Team", teamArray);
+      // createTeam();
+
     } else if (role == "Intern") {
       employee = new Intern ( name, id, email, school );
 
-      console.log(employee); 
+      teamArray.push(employee);
+      console.log("Team", teamArray);
+      // createTeam();
     };
 
-    teamArray.push(employee);
-
     if (confirmEmployee) { 
-      return addEmpolyee(teamArray);
+      return addEmpolyee();
     } else {
       return teamArray;
     };
@@ -189,7 +194,7 @@ const addEmpolyee = () => {
 
 // function to generate HTML page file using file system 
 const writeFile = data => {
-  fs.writeFile('./src/index.html', data, err => {
+  fs.writeFile('./src/index.html', generateHTML(teamArray), err => {
       // if there is an error 
       if (err) {
           console.log(err);
@@ -203,9 +208,7 @@ const writeFile = data => {
 
 managerAdd()
 .then(addEmpolyee)
-.then(teamArray => {
-  return generateHTML(Array);
-})
+.then(generateHTML(teamArray))
 .then(pageHTML => {
   return writeFile(pageHTML);
 })
