@@ -1,0 +1,22 @@
+*{
+  box-sizing: border-box;
+}
+
+:root { 
+  --primary-color: rgb(35, 64, 229);
+  --secondary-color: rgb(70, 187, 211);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  background-color: var(--secondary-color);
+  color: black;
+  font-weight: bold;
+}
+
+h5 {
+  background-color: var(--primary-color);
+}
