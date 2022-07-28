@@ -9,7 +9,7 @@ const generateTeam = (team) => {
           <div class="card-body">
             <h5 class="card-header bg-secondary text-light">
               Name: ${manager.getName()}</br>
-              <i class="fa-solid fa-user-tie">  </i>${manager.getRole()}
+              <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;&nbsp;&nbsp;${manager.getRole()}
             </h5>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">ID: ${manager.getId()}</li>
@@ -29,7 +29,7 @@ const generateTeam = (team) => {
         <div class="card-body">
           <h5 class="card-header bg-secondary text-light">
             Name: ${engineer.getName()} </br>
-            <i class="fa-solid fa-laptop-code">  </i>${engineer.getRole()}
+            <i class="fa-solid fa-laptop-code"></i>&nbsp;&nbsp;&nbsp;&nbsp;${engineer.getRole()}
           </h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.getId()}</li>
@@ -49,7 +49,7 @@ const generateTeam = (team) => {
         <div class="card-body">
           <h5 class="card-header bg-secondary text-light">
             Name: ${intern.getName()}</br>
-            <i class="fa-solid fa-school">  </i>${intern.getRole()}
+            <i class="fa-solid fa-school"></i>&nbsp;&nbsp;&nbsp;&nbsp;${intern.getRole()}
           </h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.getId()}</li>
