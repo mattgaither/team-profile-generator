@@ -204,7 +204,7 @@ const writeFile = data => {
 managerAdd()
 .then(addEmpolyee)
 .then(teamArray => {
-  return generateHTML(Array);
+  return generateHTML(teamArray);
 })
 .then(pageHTML => {
   return writeFile(pageHTML);
