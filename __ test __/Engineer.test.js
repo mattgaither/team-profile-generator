@@ -5,7 +5,7 @@ const Engineer = require('../lib/Engineer');
 test("object", () => {
   const engineer = new Engineer( 'Matt Gaither', 14, 'mattgaither1026@gmail.com', 'mattgaither');
 
-  expect(engineer.Github).toEqual(expect.any(String));
+  expect(engineer.github).toEqual(expect.any(String));
 });
 
 // Checks the engineers github username from getGitHub()
