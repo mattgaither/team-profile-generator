@@ -2,7 +2,6 @@
 const inquirer = require('inquirer');
 const validator = require('validator');
 const fs = require('fs');
-const path = require('path');
 
 // Team library
 const Manager = require("./lib/Manager");
@@ -12,9 +11,10 @@ const Intern = require('./lib/Intern');
 // link to page creation process
 const generateHTML = require('./src/html-helper');
 
-
+// This is the array the employees are pushed into
 const teamArray = [];
 
+// This creates a Manager from the prompts and then is pushed to the array
 const managerAdd = async () => {
   const managerInput = await inquirer
     .prompt([
@@ -76,9 +76,9 @@ const managerAdd = async () => {
 
   teamArray.push(manager);
   console.log("Team" , teamArray);
-  // createTeam()
 };
 
+//This creates a employee that is either a engineer or a intern then is pushed to the array
 const addEmpolyee = () => {
   console.log( "Adding empolyees to the team" );
 
@@ -169,19 +169,18 @@ const addEmpolyee = () => {
     let { name, id, role, email, github, school, confirmEmployee } = employeeData;
     let employee;
 
+    // This separates the answers to the prompts and sends them to the array
     if (role == "Engineer") {
       employee = new Engineer( name, id, email, github );
 
       teamArray.push(employee);
       console.log("Team", teamArray);
-      // createTeam();
 
     } else if (role == "Intern") {
       employee = new Intern ( name, id, email, school );
 
       teamArray.push(employee);
       console.log("Team", teamArray);
-      // createTeam();
     };
 
     if (confirmEmployee) { 
@@ -193,7 +192,7 @@ const addEmpolyee = () => {
 };
 
 // function to generate HTML page file using file system 
-const writeFile = data => {
+const writeFile = () => {
   fs.writeFile('./src/index.html', generateHTML(teamArray), err => {
       // if there is an error 
       if (err) {
@@ -206,6 +205,7 @@ const writeFile = data => {
   })
 }; 
 
+// This is what happens when the user types in "node index.js"
 managerAdd()
 .then(addEmpolyee)
 .then(generateHTML(teamArray))
